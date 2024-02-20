@@ -1,4 +1,4 @@
-# Custom Policy to connect to Cosmos DB / Azure Storage Table API via Primary Key
+# APIM : Custom Policy to connect to Cosmos DB / Azure Storage Table API via Primary Key
 
 ## APIM setting
 
@@ -6,7 +6,9 @@ Below is the API setting screen :
 
 ![API Setting screen](./assets/table-entity-settings-api.png)
 
-Below is the Get Operation being presented and used by the Table API to access a specific table ([could be extended with specific items filter][table-query-entities])
+Below is the Get Operation being presented and used by the Table API to access a specific table ([could be extended with specific items filter][table-query-entities]).
+</br>
+The current setting will get all items in the `Users` table
 
 ![Operation Setting screen](./assets/table-entity-settings-ops.png)
 
@@ -95,7 +97,6 @@ Special thanks to [@LiviuIeran][kudos] for providing a Postman collection reprod
 - [Payload format for Table service operations (REST API) - Azure Storage | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/storageservices/payload-format-for-table-service-operations#see-also)
 - [Azure Cosmos DB REST API Reference | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/cosmos-db/)
 - [Troubleshoot Azure Cosmos DB unauthorized exceptions | Microsoft Learn](https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/troubleshoot-unauthorized)
-- [Wiki (visualstudio.com)](https://supportability.visualstudio.com/AzureCosmosDB/_wiki/wikis/AzureCosmosDB.wiki/464997/Postman-REST-API-collection)
 - [Addressing Table service resources (REST API) - Azure Storage | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/storageservices/addressing-table-service-resources)
 - [Authorize with Shared Key (REST API) - Azure Storage | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/storageservices/authorize-with-shared-key#encoding-the-signature)
 
