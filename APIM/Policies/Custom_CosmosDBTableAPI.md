@@ -104,6 +104,7 @@ Special thanks to [@LiviuIeran][kudos] for providing a Postman collection reprod
 - [Addressing Table service resources (REST API) - Azure Storage | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/storageservices/addressing-table-service-resources)
 - [Authorize with Shared Key (REST API) - Azure Storage | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/storageservices/authorize-with-shared-key#encoding-the-signature)
 
+
 [table-query-entities]:https://learn.microsoft.com/en-us/rest/api/storageservices/query-entities
 [key-vault-secrets-user-right]:https://learn.microsoft.com/en-us/azure/key-vault/general/rbac-guide?tabs=azure-cli#azure-built-in-roles-for-key-vault-data-plane-operations
 [kudos]:https://github.com/LiviuIeran/
