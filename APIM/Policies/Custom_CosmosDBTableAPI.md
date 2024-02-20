@@ -85,6 +85,8 @@ Then create the policy at the scope you expect (probably API or Operation level)
 </policies>
 ```
 
+![Custom policy trace evaluation](./assets/custom-policy-trace.png)
+
 ## KUDOs  
 
 Special thanks to [@LiviuIeran][kudos] for providing a Postman collection reproducing the expected behavior : 
