@@ -85,6 +85,8 @@ Then create the policy at the scope you expect (probably API or Operation level)
 </policies>
 ```
 
+And the result detailed when tracing the api call steps, via `trace` inspection :  
+
 ![Custom policy trace evaluation](./assets/custom-policy-trace.png)
 
 ## KUDOs  
