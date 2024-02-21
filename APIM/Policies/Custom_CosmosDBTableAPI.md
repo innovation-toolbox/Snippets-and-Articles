@@ -15,7 +15,7 @@ The current setting will get all items in the `Users` table
 This version uses a key vault to store the CosmosDb Primary Key, so make sure to have a Managed Identity (system or user-defined) set to the APIM instance and give it at least read rights to the KeyVault at secret level ([Key Vault Secrets User][key-vault-secrets-user-right]).
 
 
-## API or Operation Custom C# Policy 
+## API or Operation Custom C# Policy Expression
 
 Then create the policy at the scope you expect (probably API or Operation level)
 
@@ -84,6 +84,9 @@ Then create the policy at the scope you expect (probably API or Operation level)
     <!-- Other policies if required-->
 </policies>
 ```
+
+## API or Operation Custom External Logic
+
 You could also decide to develop in any other language by externalizing the logic in an api (Azure Function for example) 
 </br>
 This would probably add some extra latency, so use with caution for real time scenarios : 
