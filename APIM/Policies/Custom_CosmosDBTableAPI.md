@@ -84,7 +84,9 @@ Then create the policy at the scope you expect (probably API or Operation level)
     <!-- Other policies if required-->
 </policies>
 ```
-You could also decide to develop in any other language by externalizing the logic in an api (Azure Function for example) : 
+You could also decide to develop in any other language by externalizing the logic in an api (Azure Function for example) 
+</br>
+This would probably add some extra latency, so use with caution for real time scenarios : 
 
 ```xml
 
