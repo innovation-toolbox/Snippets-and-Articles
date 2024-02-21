@@ -84,6 +84,39 @@ Then create the policy at the scope you expect (probably API or Operation level)
     <!-- Other policies if required-->
 </policies>
 ```
+You could also decide to develop in any other language by externalizing the logic in an api (Azure Function for example) : 
+
+```xml
+
+<policies>
+    <inbound>
+        <base />
+        <set-backend-service base-url="https://<cosmos db name>.table.cosmos.azure.com" />
+        <set-variable name="date" value="@(DateTime.UtcNow.ToString("r"))" />
+        <set-header name="Content-Type" exists-action="override">
+            <value>application/json</value>
+        </set-header>
+        <set-header name="Accept" exists-action="override">
+            <value>application/json;odata=nometadata</value>
+        </set-header>
+        <set-header name="x-ms-date" exists-action="override">
+            <value>@(context.Variables.GetValueOrDefault<string>("date"))</value>
+        </set-header>
+        <send-request mode="new" response-variable-name="primaryKeyResponse" timeout="20" ignore-error="false">
+            <set-url>https://<Azure Function Name>.azurewebsites.net/api/GetSharedKey?code=<Your AzFunc Apikey><set-url>
+            <set-method>GET</set-method>
+        </send-request>
+        <set-variable name="primaryKeySecret" value="@{
+            var secret = ((IResponse)context.Variables["primaryKeyResponse"]).Body.As<JObject>();
+            return secret["value"].ToString();
+        }" />
+        <set-header name="Authorization" exists-action="override">
+            <value>@(context.Variables.GetValueOrDefault<string>("primaryKeySecret"))</value>
+        </set-header>
+    </inbound>
+    <!-- Other policies if required-->
+</policies>
+```
 
 And the result detailed when tracing the api call steps, via `trace` inspection :  
 
