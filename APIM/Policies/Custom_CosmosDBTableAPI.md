@@ -108,7 +108,7 @@ This would probably add some extra latency, so use with caution for real time sc
             <value>@(context.Variables.GetValueOrDefault<string>("date"))</value>
         </set-header>
         <send-request mode="new" response-variable-name="primaryKeyResponse" timeout="20" ignore-error="false">
-            <set-url>https://<Azure Function Name>.azurewebsites.net/api/GetSharedKey?code=<Your AzFunc Apikey><set-url>
+            <set-url>https://AZURE_FUNCTION_NAME.azurewebsites.net/api/GetSharedKey?code=YOUR_API_KEY<set-url>
             <set-method>GET</set-method>
         </send-request>
         <set-variable name="primaryKeySecret" value="@{
