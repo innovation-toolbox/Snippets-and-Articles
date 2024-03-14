@@ -90,3 +90,4 @@ throw new BadRequestException("Please pass a valid request body");
 # Resources 
 1. [StackOverflow - Exception Handler Middleware](https://stackoverflow.com/questions/69855276/azure-net-5-isolated-functions-using-middleware-to-catch-exceptions)
 1. [StackOverflow - Exception Handler Middleware 2](https://stackoverflow.com/questions/68350021/azure-function-middleware-how-to-return-a-custom-http-response)
+1. [New Az Func Context](https://github.com/Azure/azure-functions-dotnet-worker/blob/7f67c1acfa3023d4501bf2b3d7fba7f6344cbacb/src/DotNetWorker.Core/Context/FunctionContextHttpRequestExtensions.cs)
