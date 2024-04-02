@@ -14,6 +14,8 @@ The current setting will get all items in the `Users` table
 
 This version uses a key vault to store the CosmosDb Primary Key, so make sure to have a Managed Identity (system or user-defined) set to the APIM instance and give it at least read rights to the KeyVault at secret level ([Key Vault Secrets User][key-vault-secrets-user-right]).
 
+You can also take advantage of APIM Named values to ease the access to secure values in your custom policies : 
+![Keyvault named value](./assets/named-value.png)
 
 ## API or Operation Custom C# Policy Expression
 
@@ -26,6 +28,7 @@ Then create the policy at the scope you expect (probably API or Operation level)
         <base />
         <set-backend-service base-url="https://<cosmos db name>.table.cosmos.azure.com" />
         <set-variable name="date" value="@(DateTime.UtcNow.ToString("r"))" />
+        <set-variable name="ODataFilter" value="@("(LINQ Or OData Filters from request param)")" />
         <set-header name="Content-Type" exists-action="override">
             <value>application/json</value>
         </set-header>
@@ -36,26 +39,17 @@ Then create the policy at the scope you expect (probably API or Operation level)
             <value>@(context.Variables.GetValueOrDefault<string>("date"))</value>
         </set-header>
 
-        
-        <send-request mode="new" response-variable-name="primaryKeyResponse" timeout="20" ignore-error="false">
-            <set-url>https://<keyvault-name>.vault.azure.net/secrets/<secret-name>/?api-version=7.0</set-url>
-            <set-method>GET</set-method>
-            <authentication-managed-identity resource="https://vault.azure.net" />
-        </send-request>
-        <!-- Could be replaced with secret named value and avoid AKV external call -->
-        <set-variable name="primaryKeySecret" value="@{
-                    var secret = ((IResponse)context.Variables["primaryKeyResponse"]).Body.As<JObject>();
-                    return secret["value"].ToString();
-                }" />
         <set-header name="Authorization" exists-action="override">
             <value>@{
-
                 var date = context.Variables.GetValueOrDefault<string>("date");
-                var primaryKey = context.Variables.GetValueOrDefault<string>("primaryKeySecret");
-                var cosmosAccount = "<named-value, request param or actual name>";
+                var primaryKey = "{{cosmosDbPrimaryKey}}"; // Access to the named value created earlier.
+                var cosmosAccount = "<named-value, request param or plain text name>"; 
+                var cosmosTable = "Users" 
+                // The above could be a constant variable or dynamic from request params or route (with proper exception management).
+                var dataFilter = context.Variables.GetValueOrDefault<string>("ODataFilter");
 
                 // Get the canonical resource
-                string canonicalResource = "/" + cosmosAccount + "/Users";
+                string canonicalResource = "/" + cosmosAccount + "/" + cosmosTable;
 
                 // Replace single quotes with %27
                 string finalString = canonicalResource.Replace("'", "%27");
@@ -76,7 +70,7 @@ Then create the policy at the scope you expect (probably API or Operation level)
                     string signatureEncoded = Convert.ToBase64String(signatureBytes);
 
                     // Set the authorization
-                    return $"SharedKeyLite {cosmosAccount}:{signatureEncoded}";
+                    return $"SharedKeyLite {cosmosAccount}:{signatureEncoded}"; // The precious SAS Key  
                 }
             }</value>
         </set-header>
@@ -138,6 +132,7 @@ Special thanks to [@LiviuIeran][kudos] for providing a Postman collection reprod
 - [Query Entities (REST API) - Azure Storage | Microsoft Learn][table-query-entities]
 - [Payload format for Table service operations (REST API) - Azure Storage | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/storageservices/payload-format-for-table-service-operations#see-also)
 - [Azure Cosmos DB REST API Reference | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/cosmos-db/)
+- [Azure Cosmos DB Table API OData or LINQ Filters | Microsoft Learn][cosmosdb-table-filters]
 - [Troubleshoot Azure Cosmos DB unauthorized exceptions | Microsoft Learn](https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/troubleshoot-unauthorized)
 - [Addressing Table service resources (REST API) - Azure Storage | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/storageservices/addressing-table-service-resources)
 - [Authorize with Shared Key (REST API) - Azure Storage | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/storageservices/authorize-with-shared-key#encoding-the-signature)
@@ -147,3 +142,4 @@ Special thanks to [@LiviuIeran][kudos] for providing a Postman collection reprod
 [key-vault-secrets-user-right]:https://learn.microsoft.com/en-us/azure/key-vault/general/rbac-guide?tabs=azure-cli#azure-built-in-roles-for-key-vault-data-plane-operations
 [kudos]:https://github.com/LiviuIeran/
 [kudos-repo]:https://github.com/LiviuIeran/PostmanRESTCosmosTableAPI
+[cosmosdb-table-filters]: https://learn.microsoft.com/en-us/azure/cosmos-db/table/tutorial-query
