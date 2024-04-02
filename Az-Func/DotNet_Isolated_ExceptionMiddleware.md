@@ -1,4 +1,4 @@
-# WIP - Azure Function Dotnet Isolated - Catch any CustomException in a Middleware
+# Azure Function Dotnet Isolated - Catch any CustomException in a Middleware
 
 Have you ever wondered how you could simplify the most your coding base to improve its readability and reducing the code duplication?
 What if you develop an Azure Function API with various endpoints, and want to standardize the response to the client in case an exception occurs during the execution of the logic ? Or if the inputs do not respect the expected format ? 
