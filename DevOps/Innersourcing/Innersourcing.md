@@ -7,4 +7,4 @@
 [Nubesgen][nubesgen] : Nubesgen offers a Gitops yaml creation feature that provides with examples of innersourced templates for actions.
 
 [nubesgen]: https://nubesgen.com/
-[gh-innesourcing]: (../../.github/workflows/devops-innersourcing-gitops.yml)
+[gh-innesourcing]: /.github/workflows/devops-innersourcing-gitops.yml
