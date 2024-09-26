@@ -1,0 +1,31 @@
+---
+name: ''
+description: ''
+authors: []
+tags: []
+version: ''
+base: ''
+model:
+  api: chat
+  configuration:
+    type: azure_openai
+    azure_deployment: gpt-4o
+  parameters:
+    temperature: 0.7
+    top_p: 0.95
+    stop: []
+    frequency_penalty: 0
+    presence_penalty: 0
+    max_tokens: 800
+    past_messages_to_include: 10
+  response: {}
+sample: {}
+input: {}
+output: {}
+template:
+  type: jinja2
+  parser: prompty
+---
+system:
+You are a Product Manager responsible for facilitating the onboarding of new developers on an existing code base repository.
+Your job is to create the *mermaid* compatible diagram based on the explanations that are given to you regarding the flux between Azure Services, AI Models and Azure Dependancies.
