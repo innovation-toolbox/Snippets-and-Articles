@@ -77,10 +77,59 @@ Perfect, can you make it a sequence diagram ?
 
 ```markdown
 Certainly! 
-A sequence diagram will illustrate the interactions between the components over time. Below is the mermaid sequence diagram for the described process:\n\n
+A sequence diagram will illustrate the interactions between the components over time. Below is the mermaid sequence diagram for the described process:
+
+
 
 ```mermaid
-\nsequenceDiagram\n    participant Notebook as Python Notebook\n    participant Society as Society of Mind\n    participant Architect as Software Architect Agent\n    participant Developer as Developer Agent\n    participant GPT4 as Azure OpenAI GPT-4\n    participant Import as Batch Import\n    participant AI_Search as Azure AI Search\n\n    Notebook->>Society: Reads files\n    Society->>Architect: Extract coding language, specificities, and rules\n    Architect->>GPT4: Send extraction request\n    GPT4-->>Architect: Return extracted information\n\n    Architect->>Developer: Provide rules and language specifics\n    Developer->>GPT4: Send extraction request\n    GPT4-->>Developer: Return extracted information\n\n    loop Until all relevant information is extracted\n        Developer->>Architect: Discuss extracted information\n        Architect-->>Developer: Provide additional rules/feedback\n        Developer->>GPT4: Send additional extraction request\n        GPT4-->>Developer: Return additional extracted information\n    end\n\n    Developer->>Import: Provide extracted information\n    Import->>AI_Search: Batch import data\n\n    Note over AI_Search: Data is now available for documentation generation\n```\n\n### Breakdown:\n- **Python Notebook (Notebook)**: Initiates the process by reading files and invoking the Society of Mind.\n- **Society of Mind (Society)**: Manages the interaction between the Software Architect Agent and Developer Agent.\n- **Software Architect Agent (Architect)**: \n  - Extracts coding language, specificities, and rules.\n  - Sends extraction requests to Azure OpenAI GPT-4 and receives extracted information.\n  - Provides rules and specifics to the Developer Agent.\n- **Developer Agent (Developer)**:\n  - Extracts code description, summary, business rules, mermaid flow diagram, features, and data flows.\n  - Sends extraction requests to Azure OpenAI GPT-4 and receives extracted information.\n  - Engages in iterative discussions with the Software Architect Agent until all relevant information is extracted.\n- **Azure OpenAI GPT-4 (GPT4)**: Processes extraction requests and returns the necessary information.\n- **Batch Import (Import)**: Collects and batch imports the extracted information.\n- **Azure AI Search (AI_Search)**: Stores the final data for documentation generation.\n\nThis sequence diagram represents the temporal flow of interactions between the different components in your process. If you need any further adjustments or additional details, please let me know!"
+
+sequenceDiagram
+    participant Notebook as Python Notebook
+    participant Society as Society of Mind
+    participant Architect as Software Architect Agent
+    participant Developer as Developer Agent
+    participant GPT4 as Azure OpenAI GPT-4
+    participant Import as Batch Import
+    participant AI_Search as Azure AI Search
+
+    Notebook->>Society: Reads files
+    Society->>Architect: Extract coding language, specificities, and rules
+    Architect->>GPT4: Send extraction request
+    GPT4-->>Architect: Return extracted information
+
+    Architect->>Developer: Provide rules and language specifics
+    Developer->>GPT4: Send extraction request
+    GPT4-->>Developer: Return extracted information
+
+    loop Until all relevant information is extracted
+        Developer->>Architect: Discuss extracted information
+        Architect-->>Developer: Provide additional rules/feedback
+        Developer->>GPT4: Send additional extraction request
+        GPT4-->>Developer: Return additional extracted information
+    end
+
+    Developer->>Import: Provide extracted information
+    Import->>AI_Search: Batch import data
+
+    Note over AI_Search: Data is now available for documentation generation
+```
+
+### Breakdown:
+- **Python Notebook (Notebook)**: Initiates the process by reading files and invoking the Society of Mind.
+- **Society of Mind (Society)**: Manages the interaction between the Software Architect Agent and Developer Agent.
+- **Software Architect Agent (Architect)**: 
+  - Extracts coding language, specificities, and rules.
+  - Sends extraction requests to Azure OpenAI GPT-4 and receives extracted information.
+  - Provides rules and specifics to the Developer Agent.
+- **Developer Agent (Developer)**:
+  - Extracts code description, summary, business rules, mermaid flow diagram, features, and data flows.
+  - Sends extraction requests to Azure OpenAI GPT-4 and receives extracted information.
+  - Engages in iterative discussions with the Software Architect Agent until all relevant information is extracted.
+- **Azure OpenAI GPT-4 (GPT4)**: Processes extraction requests and returns the necessary information.
+- **Batch Import (Import)**: Collects and batch imports the extracted information.
+- **Azure AI Search (AI_Search)**: Stores the final data for documentation generation.
+
+This sequence diagram represents the temporal flow of interactions between the different components in your process. If you need any further adjustments or additional details, please let me know!"
 ```
 
 ### User Message 
@@ -91,7 +140,55 @@ Also, i want the developer to return to the society of mind the result of the ex
 
 ### Assistant Message 
 ```markdown 
-Certainly! I'll update the sequence diagram to reflect the changes: removing the Batch Import part and integrating the interaction directly with Azure AI Search, as well as ensuring the Developer returns the result to the Society of Mind before sending it to Azure AI Search.\n\n```mermaid\nsequenceDiagram\n    participant Notebook as Python Notebook\n    participant Society as Society of Mind\n    participant Architect as Software Architect Agent\n    participant Developer as Developer Agent\n    participant GPT4 as Azure OpenAI GPT-4\n    participant AI_Search as Azure AI Search\n\n    Notebook->>Society: Reads files\n    Society->>Architect: Extract coding language, specificities, and rules\n    Architect->>GPT4: Send extraction request\n    GPT4-->>Architect: Return extracted information\n\n    Architect->>Developer: Provide rules and language specifics\n    Developer->>GPT4: Send extraction request\n    GPT4-->>Developer: Return extracted information\n\n    loop Until all relevant information is extracted\n        Developer->>Architect: Discuss extracted information\n        Architect-->>Developer: Provide additional rules/feedback\n        Developer->>GPT4: Send additional extraction request\n        GPT4-->>Developer: Return additional extracted information\n    end\n\n    Developer->>Society: Return extracted information\n    Society->>AI_Search: Send extracted information for documentation generation\n\n    Note over AI_Search: Data is now available for documentation generation\n```\n\n### Breakdown:\n- **Python Notebook (Notebook)**: Initiates the process by reading files and invoking the Society of Mind.\n- **Society of Mind (Society)**: Manages the interaction between the Software Architect Agent and Developer Agent.\n- **Software Architect Agent (Architect)**: \n  - Extracts coding language, specificities, and rules.\n  - Sends extraction requests to Azure OpenAI GPT-4 and receives extracted information.\n  - Provides rules and specifics to the Developer Agent.\n- **Developer Agent (Developer)**:\n  - Extracts code description, summary, business rules, mermaid flow diagram, features, and data flows.\n  - Sends extraction requests to Azure OpenAI GPT-4 and receives extracted information.\n  - Engages in iterative discussions with the Software Architect Agent until all relevant information is extracted.\n  - Returns the extracted information to the Society of Mind.\n- **Azure OpenAI GPT-4 (GPT4)**: Processes extraction requests and returns the necessary information.\n- **Azure AI Search (AI_Search)**: Receives the final extracted information from the Society of Mind for documentation generation.\n\nThis updated sequence diagram reflects the new interactions and should align with your requirements. If there are any further adjustments or additional details needed, please let me know!
+Certainly! I'll update the sequence diagram to reflect the changes: removing the Batch Import part and integrating the interaction directly with Azure AI Search, as well as ensuring the Developer returns the result to the Society of Mind before sending it to Azure AI Search.
+
+```mermaid
+sequenceDiagram
+    participant Notebook as Python Notebook
+    participant Society as Society of Mind
+    participant Architect as Software Architect Agent
+    participant Developer as Developer Agent
+    participant GPT4 as Azure OpenAI GPT-4
+    participant AI_Search as Azure AI Search
+
+    Notebook->>Society: Reads files
+    Society->>Architect: Extract coding language, specificities, and rules
+    Architect->>GPT4: Send extraction request
+    GPT4-->>Architect: Return extracted information
+
+    Architect->>Developer: Provide rules and language specifics
+    Developer->>GPT4: Send extraction request
+    GPT4-->>Developer: Return extracted information
+
+    loop Until all relevant information is extracted
+        Developer->>Architect: Discuss extracted information
+        Architect-->>Developer: Provide additional rules/feedback
+        Developer->>GPT4: Send additional extraction request
+        GPT4-->>Developer: Return additional extracted information
+    end
+
+    Developer->>Society: Return extracted information
+    Society->>AI_Search: Send extracted information for documentation generation
+
+    Note over AI_Search: Data is now available for documentation generation
+```
+
+### Breakdown:
+- **Python Notebook (Notebook)**: Initiates the process by reading files and invoking the Society of Mind.
+- **Society of Mind (Society)**: Manages the interaction between the Software Architect Agent and Developer Agent.
+- **Software Architect Agent (Architect)**: 
+  - Extracts coding language, specificities, and rules.
+  - Sends extraction requests to Azure OpenAI GPT-4 and receives extracted information.
+  - Provides rules and specifics to the Developer Agent.
+- **Developer Agent (Developer)**:
+  - Extracts code description, summary, business rules, mermaid flow diagram, features, and data flows.
+  - Sends extraction requests to Azure OpenAI GPT-4 and receives extracted information.
+  - Engages in iterative discussions with the Software Architect Agent until all relevant information is extracted.
+  - Returns the extracted information to the Society of Mind.
+- **Azure OpenAI GPT-4 (GPT4)**: Processes extraction requests and returns the necessary information.
+- **Azure AI Search (AI_Search)**: Receives the final extracted information from the Society of Mind for documentation generation.
+
+This updated sequence diagram reflects the new interactions and should align with your requirements. If there are any further adjustments or additional details needed, please let me know!
 ```
 
 ### User message : 
@@ -179,117 +276,7 @@ output_records: OutputRecords = OutputRecords()
 // get the user prompt from the Writer Class
 task = SummaryWriterAgentPrompts._SummaryWriterAgentPrompts__USER_PROMPT
 
-try:
-    message = task.format(
-        app_name=app_name,
-        context=json.dumps(code_summaries),
-    )
-    
-    // The actual Autogen chat process with the society of mind agent
-    user_proxy.initiate_chat(
-        summary_society_of_mind_agent,
-        message=message,
-        cache=None
-    )
-    
-    //Retrieving the Json output from the society of mind agent
-    output = user_proxy.last_message()['content']
-
-    // Clearing History for the next iteration
-    user_proxy.clear_history()
-except Exception as e:
-    print(
-        f"Error while retrieving an answer from agents for the file : {file.name}")
-    // resetting output to None to force the retry of the agentic process
-    output = None
-
-# Loop on the features and generate content : 
-
-// load json as object
-result = json.loads(json_features)
-features = result['functionalities']
-
-codefiles = dict((file["code_file"], file["code_description"]) for file in code_descriptions)
-
-// Define a function to generate the documentation for a chapter
-def generate_documentation(chapter):
-    print("start generation for chapter: " + chapter["title"])
-    code_description = ""
-    // loop on files to build the prompt
-    for file in chapter["files"]:
-        if codefiles.get(file):
-            code_description += """
-                FILENAME: {file}
-                DESCRIPTION: 
-                {description}
-                ========================================
-            """.format(file=file, description=codefiles[file])
-            
-    // sometimes the model gives bad reference and the code_description is empty
-    if code_description == "":
-        print("No code description found for chapter: " + chapter["title"])
-        return chapter['title'], ""
-    
-    // get the user prompt from the Writer Class
-    task = FeatureWriterAgentPrompts._FeatureWriterAgentPrompts__USER_PROMPT
-
-    // generate the documentation for the chapter
-    try:
-        message = task.format(
-            functionality=chapter["title"],
-            code_descriptions=code_description,
-        )
-        
-        // The actual Autogen chat process with the society of mind agent
-        user_proxy.initiate_chat(
-            feature_society_of_mind_agent,
-            message=message,
-            cache=None
-        )
-        
-        // Retrieving the Json output from the society of mind agent
-        output = user_proxy.last_message()['content']
-
-        // Clearing History for the next iteration
-        user_proxy.clear_history()
-    except Exception as e:
-        print(
-            f"Error {json.dumps(e)}")
-        # resetting output to None to force the retry of the agentic process
-        output = None
-
-
-    
-    # return the title and the content
-    return chapter['title'], output
-
-# Split chapters into batches of 4 to parrallelize the generation
-# without triggering the TPM limit of the API
-batch_size = 2
-batches = [features[i:i+batch_size] for i in range(0, len(features), batch_size)]
-
-# Create an executor for parallel execution
-with concurrent.futures.ThreadPoolExecutor() as executor:
-    # Iterate over batches and submit tasks for parallel execution
-    futures = []
-    for batch in batches:
-        for chapter in batch:
-            future = executor.submit(generate_documentation, chapter)
-            futures.append(future)
-
-    # Wait for all tasks to complete and get the results in the original order
-    results = []
-    for future in concurrent.futures.as_completed(futures):
-        results.append(future.result())
-
-# Append the chapters to the app_name.md file in the original order
-with open(filepath, 'a') as file:
-    for title, content in results:
-        file.write("
-# {title}
-".format(title=title))
-        file.write(content)
-        print(title + " documentation generated & added to the document")
+[...]
 
 ```
 
@@ -362,3 +349,137 @@ Breakdown:
 
 This sequence diagram provides a clear overview of the orchestration and interactions between the different agents involved in the summary and feature writing process. If there are any further adjustments or additional details needed, please let me know!"
 ```
+
+### User Message : Request for a better System Prompt 
+```markdown
+Can you please summarize the conversation's instructions so that next time i have a better system message and fewer interactions before obtaining the same kind of result from you ? 
+
+```
+
+### Assistant Message : Better System Prompt : 
+
+Certainly! Here is a summary of the conversation's instructions that you can use to create a more effective system message for future interactions:
+
+---
+
+**System Message for Future Interactions:**
+
+You are a Product Manager responsible for facilitating the onboarding of new developers on an existing code base repository. Your task is to create *mermaid*-compatible diagrams based on provided descriptions and instructions related to the flux between Azure Services, AI Models, and Azure Dependencies. You will generate sequence diagrams or other types of diagrams as specified.
+
+### Key Points to Include:
+1. **Sequence Diagrams**:
+    - Focus on interactions between components over time.
+    - Example components: Python Notebook, Society of Mind, Software Architect Agent, Developer Agent, Azure OpenAI GPT-4, Azure AI Search.
+
+2. **Simplified Workflow**:
+    - When requested, simplify the diagrams by removing unnecessary components or interactions.
+    - Example simplification: Removing Azure OpenAI GPT-4 agent and its interactions.
+
+3. **Specific Scenarios**:
+    - Example scenario: Python Notebook orchestrating a Society of Mind with Summary Writer Agent and Feature Writer Agent, both interacting with a Style Critic until a consensus is reached.
+    - Components: Python Notebook Orchestration, Summary Writer Agent (Gpt-4o), Feature Writer Agent (Gpt-4o), Society of Mind (Gpt-4o), Style Critic (Gpt-4o), Azure Search as an index for source code content.
+
+4. **Corrections and Fixes**:
+    - Correct and simplify provided Mermaid diagrams as needed.
+    - Ensure proper syntax and clear representation of processes.
+
+### Example Mermaid Sequence Diagram Instructions:
+```plaintext
+1. Components: Python Notebook, Society of Mind, Software Architect Agent, Developer Agent, Azure AI Search.
+2. Remove Azure OpenAI GPT-4 interactions and focus on main agents.
+3. Ensure interactions are clear and consensus loops are properly represented.
+```
+
+### Example Mermaid Graph Diagram Instructions:
+```plaintext
+1. Correct and simplify provided Mermaid diagrams.
+2. Ensure proper syntax and clear representation of processes.
+3. Example components: Entry Point, Initialization, Main Processing, Validation, CRUD Operations, Error Handling, Cleanup, Return.
+```
+
+### Sample Mermaid Code:
+```mermaid
+sequenceDiagram
+    participant Notebook as Python Notebook
+    participant Society as Society of Mind
+    participant SummaryWriter as Summary Writer Agent (Gpt-4o)
+    participant FeatureWriter as Feature Writer Agent (Gpt-4o)
+    participant StyleCritic as Style Critic (Gpt-4o)
+    participant AI_Search as Azure Search
+
+    Notebook->>AI_Search: Load data from Azure Search Index
+    AI_Search-->>Notebook: Return code summaries and descriptions
+
+    Notebook->>Society: Initialize Society of Mind
+    Society->>SummaryWriter: Task for summary writing
+    SummaryWriter->>StyleCritic: Discuss summary style
+    StyleCritic-->>SummaryWriter: Provide feedback
+
+    loop Until consensus on summary
+        SummaryWriter->>StyleCritic: Discuss summary style
+        StyleCritic-->>SummaryWriter: Provide feedback
+    end
+
+    SummaryWriter->>Society: Return agreed summary
+
+    loop Until all chapters are generated
+        Notebook->>Society: Task for feature writing
+        Society->>FeatureWriter: Task for detailed feature writing
+        FeatureWriter->>StyleCritic: Discuss feature style
+        StyleCritic-->>FeatureWriter: Provide feedback
+
+        loop Until consensus on feature writing
+            FeatureWriter->>StyleCritic: Discuss feature style
+            StyleCritic-->>FeatureWriter: Provide feedback
+        end
+
+        FeatureWriter->>Society: Return agreed feature writing
+    end
+
+    Society->>Notebook: Return final documentation content
+
+    Note over Notebook: Documentation is saved to file
+```
+
+### Sample Mermaid Graph Diagram Code:
+```mermaid
+graph LR
+    A['ENTREE-PROGRAMME'] -->|Initialization| B['DEBUT-PROGRAMME']
+    B --> C['099-INIT-DEBUT-PGM']
+    C -->|Main Processing| D['TRAITEMENTS']
+    D -->|Validate CDTRT2| E['100-CTRL-CDTRT2']
+    E -->|Perform CRUD| F['100-INSERT-IN']
+    E --> F['100-SELECT-RE']
+    E --> F['100-UPDATE-UP']
+    E --> F['100-DELETE-DE']
+    D -->|Error Handling| G['100-TRT-KO']
+    G --> H['100-ALIM-ERREUR']
+    G --> I['100-SORTIE-KO']
+    D -->|Cleanup| J['SORTIE-PROGRAMME']
+    J --> K['100-ALIM-RETOUR-OK']
+    K --> L['RETURN']
+```
+
+### Summary of Instructions:
+1. **Component Interaction**:
+   - Understand and illustrate the interactions between various components such as Python Notebook, Society of Mind, different types of writer agents, style critic, and Azure services.
+   - Represent the flow of data and control clearly in the diagrams.
+
+2. **Simplification**:
+   - Simplify diagrams by removing unnecessary details or components when requested.
+   - Ensure that the core interactions and processes are still represented.
+
+3. **Error Handling and Consensus**:
+   - Include error handling and consensus loops in the diagrams to show iterative processes.
+   - Clearly illustrate how agents interact and reach consensus.
+
+4. **Correct Syntax**:
+   - Ensure that the Mermaid diagram syntax is correct for both sequence and graph diagrams.
+   - Provide clear labels and connections between nodes.
+
+5. **Documentation and Output**:
+   - Show the final output process, including how documentation is generated and saved.
+
+With these instructions, you should be able to generate effective system messages and obtain the desired Mermaid diagrams with fewer interactions.
+
+If you need any further details or adjustments, please let me know!
