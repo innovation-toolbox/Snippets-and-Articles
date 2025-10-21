@@ -1,5 +1,92 @@
 # Custom Policy to extract the Content Filter results from an Azure OpenAI prompt and inference results 
 
+## Sample Output from Azure AI Foundry on a triggering prompt for `violence low` category
+
+```json
+{
+    "choices": [{
+        "content_filter_results": {
+            "hate": {
+                "filtered": false,
+                "severity": "safe"
+            },
+            "protected_material_text": {
+                "filtered": false,
+                "detected": false
+            },
+            "self_harm": {
+                "filtered": false,
+                "severity": "safe"
+            },
+            "sexual": {
+                "filtered": false,
+                "severity": "safe"
+            },
+            "violence": {
+                "filtered": false,
+                "severity": "safe"
+            }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+            "annotations": [],
+            "content": "I'm here to help! If there's something specific you're frustrated with or if you need assistance, please let me know.",
+            "refusal": null,
+            "role": "assistant"
+        }
+    }],
+    "created": 1761034069,
+    "id": "chatcmpl-CT1hFP1WjnekMadooxlG8jnuGb8jA",
+    "model": "gpt-4.1-nano-2025-04-14",
+    "object": "chat.completion",
+    "prompt_filter_results": [{
+        "prompt_index": 0,
+        "content_filter_results": {
+            "hate": {
+                "filtered": false,
+                "severity": "low"
+            },
+            "jailbreak": {
+                "filtered": false,
+                "detected": false
+            },
+            "self_harm": {
+                "filtered": false,
+                "severity": "safe"
+            },
+            "sexual": {
+                "filtered": false,
+                "severity": "safe"
+            },
+            "violence": {
+                "filtered": false,
+                "severity": "safe"
+            }
+        }
+    }],
+    "system_fingerprint": "fp_03e44fcc34",
+    "usage": {
+        "completion_tokens": 24,
+        "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+        },
+        "prompt_tokens": 21,
+        "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 0
+        },
+        "total_tokens": 45
+    }
+}
+```
+
+## Policy Sample 
+
 ```xml
  <!--
     IMPORTANT:
